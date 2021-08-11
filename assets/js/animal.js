@@ -1,6 +1,10 @@
+//Aqui se  importa la funcion animales que se planteo en el js consulta
 import animales from "./Consulta.js"
+
+//Aqui se define la clase padre animal que contiene las variables para ser usadas en las clases hijas
 class Animal{
     constructor(nombre,edad,img,comentarios,sonido){
+        //Definicion de variables que se utilizaran como datos de ingreso
         let Nombre= nombre;
         let Edad= edad;
         let Img= img;
@@ -31,8 +35,8 @@ class Animal{
         return this.getSonido();
     }
 }
-let mostrar= new Animal("julian",12,"jkahskdjhskjhs","sdgdsg","fsdgdg");
-console.log(mostrar)
+
+//Clase hija leon que contendra la funcion rugir 
 class Leon extends Animal{
     constructor(nombre,edad,img,comentarios,sonido){
         super(nombre,edad,img,comentarios,sonido)
@@ -41,6 +45,7 @@ class Leon extends Animal{
         return `./assets/sounds/${this.Sonido}`
     }
 };
+//Clase hija lobo que contendra la funcion aullar 
 class Lobo extends Animal{
     constructor(nombre,edad,img,comentarios,sonido){
         super(nombre,edad,img,comentarios,sonido)
@@ -49,6 +54,7 @@ class Lobo extends Animal{
         return `./assets/sounds/${this.Sonido}`
     }
 };
+//Clase hija oso que contendra la funcion gruñir 
 class Oso extends Animal{
     constructor(nombre,edad,img,comentarios,sonido){
         super(nombre,edad,img,comentarios,sonido)
@@ -57,6 +63,7 @@ class Oso extends Animal{
         return `./assets/sounds/${this.Sonido}`
     }
 };
+//Clase hija serpiente que contendra la funcion sisear
 class Serpiente extends Animal{
     constructor(nombre,edad,img,comentarios,sonido){
         super(nombre,edad,img,comentarios,sonido)
@@ -66,6 +73,7 @@ class Serpiente extends Animal{
     }
     
 };
+//Clase hija aguila que contendra la funcion chillar
 class Aguila extends Animal{
     constructor(nombre,edad,img,comentarios,sonido){
         super(nombre,edad,img,comentarios,sonido)
@@ -74,10 +82,13 @@ class Aguila extends Animal{
         return `./assets/sounds/${this.Sonido}`
     }  
 };
-// FUNCION PARA GENERAR EL CONTENIDO DE LOS ANIMALES.
+// Aqui se define la variable animales que se utilizara para generar la previsualizacion de la
+// imagen en el preview. Tambien la variable animalesregistro que se utilizara para generar un arreglo
+// con los datos de los animales que se vayan registrando
 let Animales=document.getElementById('animal')
 let animalesregistro=[];
 const preview=document.getElementById('preview');
+//Funcion que permite visualizar la imagen del animal que se seleccionara
 Animales.addEventListener('change', async ()=>{
     const al = await animales.getData();
     const animalSeleccionado=Animales.value
@@ -87,6 +98,7 @@ Animales.addEventListener('change', async ()=>{
     console.log(img)
     preview.innerHTML= `<img src="${img}" style="width: 200px; height: 200px;">`
 });
+//Funcion que nos permitira generar el arreglo con los datos correspondiente a cada animal
 document.getElementById('btnRegistrar').addEventListener("click", async()=>{
     const al = await animales.getData();
     const animalSeleccionado=Animales.value
@@ -159,6 +171,7 @@ document.getElementById('btnRegistrar').addEventListener("click", async()=>{
     console.log(animalesregistro)
 
 });  
+//Funcion que ingresara en pantalla el animal seleccionado con sus respectivos datos
 const reloadTable = () => {
     let ingresarAnimal=document.getElementById('Animales');
     ingresarAnimal.innerHTML="";
@@ -175,7 +188,7 @@ const reloadTable = () => {
     });
 
 }  
- 
+// Funcion que nos permitira general el modal segun el animal que corresponda al picar en la foto
 window.modalanimal=(i)=>{
     const animales=animalesregistro[i]
     let modalbody=document.getElementsByClassName('animales')[0];
@@ -212,7 +225,7 @@ window.modalanimal=(i)=>{
     }
     reloadTable();
 }    
-
+// Funcion que nos permitira hacer el llamado del sonido al apretar el icono de parlante debajo de la imagen 
 window.sonidoAnimal=(i)=>{
     const animales= animalesregistro[i];
     let audio=document.getElementById('player')
